@@ -3,7 +3,18 @@ import { check, sleep } from 'k6';
 
 export const options = {
     vus: 10,
-    iterations: 10,
+    duration: '10s',
+
+    summaryTrendStats: [
+        'avg',
+        'min',
+        'med',
+        'max',
+        'p(50)',
+        'p(90)',
+        'p(95)',
+        'p(99)',
+    ],
 };
 
 export default function () {
@@ -13,7 +24,7 @@ export default function () {
     // -------------------------
 
     const payload = JSON.stringify({
-        url: `https://example${__ITER}.com`
+        url: `https://example${__VU}-${__ITER}.com`
     });
 
     const params = {
