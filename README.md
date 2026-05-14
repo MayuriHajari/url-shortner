@@ -133,3 +133,7 @@ Expected Output:
 ├── README.md
 └── .gitignore
 ```
+
+### Test Execution
+
+![Tests Passed](screenshots/test-passed.png)
