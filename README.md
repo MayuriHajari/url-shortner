@@ -137,3 +137,18 @@ Expected Output:
 ### Test Execution
 
 ![Tests Passed](screenshots/test-passed.png)
+
+
+## Load Testing
+
+Load testing was performed using k6 with 10 simultaneous virtual users.
+
+Command used:
+
+```bash
+k6 run load_test.js
+```
+
+### Load Test Result
+
+![k6 Load Test](screenshots/k6-load-test.png)
