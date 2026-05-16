@@ -1,9 +1,12 @@
 import http from 'k6/http';
 import { check, sleep } from 'k6';
 
+// Read VUs from command line
+const vus = __ENV.VUS ? parseInt(__ENV.VUS) : 10;
+
 export const options = {
-    vus: 10,
-    duration: '10s',
+    vus: vus,
+    duration: '15s',
 
     summaryTrendStats: [
         'avg',

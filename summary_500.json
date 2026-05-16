@@ -1,0 +1,29 @@
+{
+    "root_group": {
+        "name": "",
+        "path": "",
+        "id": "d41d8cd98f00b204e9800998ecf8427e",
+        "groups": {},
+        "checks": {}
+    },
+    "metrics": {
+        "vus": {
+            "max": 500,
+            "value": 500,
+            "min": 500
+        },
+        "vus_max": {
+            "value": 500,
+            "min": 500,
+            "max": 500
+        },
+        "data_sent": {
+            "count": 83892,
+            "rate": 1862.1263221197883
+        },
+        "data_received": {
+            "count": 0,
+            "rate": 0
+        }
+    }
+}

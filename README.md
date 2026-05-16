@@ -222,3 +222,33 @@ These values represent API response time percentiles in milliseconds.
 
 ![Performance Summary](screenshots/summary.png)
 
+## Load Testing Results
+
+| Concurrent Users | p50 | p90 | p95 | p99 |
+|------------------|------|------|------|------|
+| 50  | 7.57 ms | 63.02 ms | 162.97 ms | 427.20 ms |
+| 100 | 30198.61 ms | 30312.81 ms | 30312.81 ms | 30331.36 ms |
+| 200 | 32572.59 ms | 32631.38 ms | 32638.02 ms | 32643.56 ms |
+| 500 | time out | time out | time out | time out |
+
+## Latency Graph
+
+![Latency Graph](screenshots/latency_graph.png)
+
+## Load Testing Results
+
+| Concurrent Users | Status |
+|------------------|---------|
+| 10   | Stable |
+| 50   | Stable |
+| 100  | Stable |
+| 200  | Slight latency increase |
+| 500  | API started failing / timing out |
+
+
+## Observations
+
+- The FastAPI application handled low and medium traffic efficiently.
+- Latency increased as concurrent users increased.
+- At 500 concurrent users, the server stopped responding correctly.
+- SQLite and synchronous request handling became bottlenecks under high concurrency.
