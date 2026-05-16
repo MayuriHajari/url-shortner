@@ -252,3 +252,17 @@ These values represent API response time percentiles in milliseconds.
 - Latency increased as concurrent users increased.
 - At 500 concurrent users, the server stopped responding correctly.
 - SQLite and synchronous request handling became bottlenecks under high concurrency.
+
+## Duplicate URL Handling
+
+If the same URL is shortened multiple times, the API returns the existing short code instead of creating a new one.
+
+This behavior is verified using automated integration tests.
+
+## Duplicate URL Test
+
+The API returns the same short code when the same URL is shortened multiple times.
+
+### Test Result
+
+![Duplicate URL Test](screenshots/duplicate-url-test.png)
