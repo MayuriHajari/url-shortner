@@ -76,3 +76,25 @@ def redirect_url(code: str, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Short code not found.")
 
     return RedirectResponse(url=url_entry.original_url, status_code=302)
+
+@app.delete("/urls/{code}", status_code=200)
+def delete_short_code(
+    code: str,
+    db: Session = Depends(get_db)
+):
+    url_entry = db.query(URL).filter(
+        URL.short_code == code
+    ).first()
+
+    if not url_entry:
+        raise HTTPException(
+            status_code=404,
+            detail="Short code not found."
+        )
+
+    db.delete(url_entry)
+    db.commit()
+
+    return {
+        "message": "Short code deleted successfully."
+    }

@@ -266,3 +266,47 @@ The API returns the same short code when the same URL is shortened multiple time
 ### Test Result
 
 ![Duplicate URL Test](screenshots/duplicate-url-test.png)
+
+## Invalid Short Code Handling
+
+If a non-existent short code is requested, the API returns:
+
+```text
+404 Not Found
+```
+
+This behavior is verified using automated integration tests.
+
+## Invalid Short Code Test
+
+![404 Test](screenshots/404-test.png)
+
+
+## Delete Short Code
+
+The API supports deleting shortened URLs.
+
+### Endpoint
+
+```http
+DELETE /urls/{code}
+```
+
+### Example
+
+```http
+DELETE /urls/abc123
+```
+
+If the short code exists, it is removed from the database.
+
+If the short code does not exist, the API returns:
+
+```text
+404 Not Found
+```
+
+
+## Delete Short Code Test
+
+![Delete Short Code Test](screenshots/delete-shortcode-test.png)

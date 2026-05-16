@@ -93,3 +93,36 @@ def test_non_existent_short_code():
     assert response.json() == {
         "detail": "Short code not found."
     }
+    
+def test_delete_short_code():
+
+    # Step 1: Create short URL
+    response = client.post(
+        "/shorten",
+        json={
+            "url": "https://delete-test.com"
+        }
+    )
+
+    assert response.status_code == 201
+
+    short_code = response.json()["short_code"]
+
+    # Step 2: Delete short code
+    delete_response = client.delete(
+        f"/urls/{short_code}"
+    )
+
+    assert delete_response.status_code == 200
+
+    assert delete_response.json() == {
+        "message": "Short code deleted successfully."
+    }
+
+    # Step 3: Verify redirect no longer works
+    redirect_response = client.get(
+        f"/redirect?code={short_code}",
+        follow_redirects=False
+    )
+
+    assert redirect_response.status_code == 404    
