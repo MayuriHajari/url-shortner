@@ -126,3 +126,30 @@ def test_delete_short_code():
     )
 
     assert redirect_response.status_code == 404    
+
+
+def test_shorten_rejects_empty_url():
+    response = client.post(
+        "/shorten",
+        json={"url": ""},
+    )
+
+    assert response.status_code == 422
+
+
+def test_shorten_rejects_unsupported_scheme():
+    response = client.post(
+        "/shorten",
+        json={"url": "ftp://example.com/file"},
+    )
+
+    assert response.status_code == 422
+
+
+def test_shorten_rejects_missing_url():
+    response = client.post(
+        "/shorten",
+        json={},
+    )
+
+    assert response.status_code == 422
