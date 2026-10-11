@@ -126,3 +126,47 @@ def test_delete_short_code():
     )
 
     assert redirect_response.status_code == 404    
+
+
+def test_delete_nonexistent_short_code():
+    response = client.delete(
+        "/urls/nonexistent-delete-code-987654"
+    )
+
+    assert response.status_code == 404
+    assert response.json() == {
+        "detail": "Short code not found."
+    }
+
+
+def test_deleted_url_cannot_be_redirected():
+    # Create a URL with a unique path for this test
+    import uuid
+
+    unique_url = f"https://delete-test.com/{uuid.uuid4().hex}"
+
+    create_response = client.post(
+        "/shorten",
+        json={"url": unique_url},
+    )
+
+    assert create_response.status_code == 201
+    short_code = create_response.json()["short_code"]
+
+    # Delete the newly created URL
+    delete_response = client.delete(
+        f"/urls/{short_code}"
+    )
+
+    assert delete_response.status_code == 200
+
+    # Verify that the deleted code no longer redirects
+    redirect_response = client.get(
+        f"/redirect?code={short_code}",
+        follow_redirects=False,
+    )
+
+    assert redirect_response.status_code == 404
+    assert redirect_response.json() == {
+        "detail": "Short code not found."
+    }
