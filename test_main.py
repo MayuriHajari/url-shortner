@@ -126,3 +126,14 @@ def test_delete_short_code():
     )
 
     assert redirect_response.status_code == 404    
+
+def test_known_bug_for_codzee_experiment():
+    client = TestClient(app)
+
+    response = client.get(
+        "/redirect?code=definitely-missing",
+        follow_redirects=False,
+    )
+
+    # Intentionally incorrect expectation for this experiment
+    assert response.status_code == 200
